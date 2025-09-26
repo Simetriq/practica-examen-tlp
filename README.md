@@ -1,5 +1,4 @@
 # practica-examen-tlp
-# practica-examen-tlp
 
 ⏰ PLAN DE TRABAJO DETALLADO (3 HORAS)
 
