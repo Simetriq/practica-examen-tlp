@@ -70,3 +70,108 @@ Ejercicio 3 (45 min):
 
 Ejercicio 4 (45 min):
 "Validaciones con express-validator y populate de relaciones"
+
+
+====================================================================================================================================================================================================================================================
+
+Modelos a realizar:
+
+TEMA: Sistema de Gestión de Proyectos Personales
+
+MODELO 1: User (Usuario)
+
+Relación 1:1 Embebida:
+
+Campo: userSettings (objeto embebido)
+
+theme: string enum ['light', 'dark', 'auto']
+
+notifications: boolean
+
+language: string enum ['es', 'en']
+
+timezone: string
+
+Eliminación Lógica:
+
+Campo: deletedAt (Date)
+
+Campos principales:
+
+username (string, único, requerido)
+
+email (string, único, requerido)
+
+password (string, requerido)
+
+role (string enum: ['user', 'project_manager', 'admin'])
+
+MODELO 2: Project (Proyecto)
+Relación 1:N Referenciada:
+
+Campo: owner (ObjectId, referencia a User)
+
+Campo: teamMembers (array de ObjectIds, referencia a User)
+
+Campos principales:
+
+title (string, requerido)
+
+description (string)
+
+status (string enum: ['planning', 'in_progress', 'completed', 'cancelled'])
+
+deadline (Date)
+
+priority (string enum: ['low', 'medium', 'high'])
+
+MODELO 3: Task (Tarea)
+Relación 1:N Referenciada:
+
+Campo: project (ObjectId, referencia a Project)
+
+Campo: assignedTo (ObjectId, referencia a User)
+
+Relación N:M Referenciada:
+
+Campo: dependencies (array de ObjectIds, referencia a Task)
+
+Campos principales:
+
+title (string, requerido)
+
+description (string)
+
+status (string enum: ['todo', 'in_progress', 'review', 'done'])
+
+dueDate (Date)
+
+estimatedHours (Number)
+
+🎯 REQUISITOS TÉCNICOS:
+
+Para User:
+
+✅ Relación 1:1 embebida: userSettings
+
+✅ Eliminación lógica: deletedAt
+
+✅ Método: softDelete()
+
+✅ Middleware: excluir usuarios eliminados en consultas
+
+✅ Método: comparePassword()
+
+Para Project:
+
+✅ Relación 1:N: owner → User
+
+✅ Relación N:M: teamMembers → [User]
+
+Para Task:
+
+✅ Relación 1:N: project → Project
+
+✅ Relación 1:N: assignedTo → User
+
+✅ Relación N:M: dependencies → [Task]
